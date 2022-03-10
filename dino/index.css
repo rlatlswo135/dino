@@ -1,0 +1,165 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "game";
+  src: url("./VCR_OSD_MONO_1.001.ttf");
+}
+body {
+  margin: 0px;
+  padding: 5%;
+}
+
+.font, #score, #life, .test div, .game-title {
+  transform: translate(0.02deg);
+  font-family: game;
+}
+
+div,
+h1 {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+.on {
+  display: block;
+}
+
+#cactus {
+  border: 5px solid orange;
+}
+
+#dino {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  border: 5px solid green;
+}
+
+#container {
+  border: 3px solid red;
+  position: relative;
+}
+
+#game-main {
+  border: 1px solid blue;
+  text-align: center;
+  padding: 5% 0%;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  position: relative;
+  background-image: url("./Image/배경.jpeg");
+  background-size: cover;
+}
+
+.play_on, .play_off {
+  width: 50px;
+  height: 50px;
+  background-image: url("./soundOnOff/soundOnBlack.png");
+  background-size: cover;
+}
+
+.play_off {
+  background-image: url("./soundOnOff/soundOffBlack.png");
+}
+
+#game-play {
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  border: 3px solid brown;
+  position: relative;
+}
+
+.bgm-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1%;
+}
+
+.game-title {
+  text-align: center;
+  font-size: 5em;
+  position: relative;
+  z-index: 5;
+  padding: 5%;
+}
+.game-title .game-title-img {
+  background-image: url("./Image/배경.jpeg");
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.test {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.test div {
+  background-color: antiquewhite;
+  font-size: 2em;
+  border-style: none;
+  padding: 5% 5%;
+  width: 30%;
+  margin-top: 2%;
+}
+
+#audio_play {
+  position: relative;
+}
+
+.volume-bar {
+  width: 60px;
+  position: relative;
+  top: 5px;
+  left: -7px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 60px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(#ff4500, #ff4500);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ff4500;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+}
+
+#score, #life {
+  font-size: 2em;
+  padding: 1%;
+  letter-spacing: 5px;
+}
+
+#life {
+  color: red;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+.off {
+  display: none;
+}/*# sourceMappingURL=index.css.map */
