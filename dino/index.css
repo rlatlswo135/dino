@@ -8,7 +8,7 @@ body {
   padding: 5%;
 }
 
-.font, #score, #life, .test div, .game-title {
+.font, #game-how, #score, #life, #audio_play div, .btn, .game-title {
   transform: translate(0.02deg);
   font-family: game;
 }
@@ -23,24 +23,17 @@ h1 {
   display: block;
 }
 
-#cactus {
-  border: 5px solid orange;
-}
-
-#dino {
+#player {
   position: absolute;
   top: 0px;
   left: 0;
-  border: 5px solid green;
 }
 
 #container {
-  border: 3px solid red;
   position: relative;
 }
 
 #game-main {
-  border: 1px solid blue;
   text-align: center;
   padding: 5% 0%;
   width: 80%;
@@ -66,7 +59,6 @@ h1 {
   margin: auto;
   width: 80%;
   height: 80%;
-  border: 3px solid brown;
   position: relative;
 }
 
@@ -97,22 +89,39 @@ h1 {
   height: 100%;
 }
 
-.test {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.test div {
+.btn {
+  border-radius: 10px;
   background-color: antiquewhite;
   font-size: 2em;
   border-style: none;
   padding: 5% 5%;
   width: 30%;
   margin-top: 2%;
+  position: relative;
+}
+
+.btn:hover {
+  -webkit-animation-name: btnEvent;
+          animation-name: btnEvent;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+.game-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 #audio_play {
   position: relative;
+  left: 30px;
+}
+#audio_play div {
+  position: absolute;
+  top: 60px;
+  left: -5px;
+  font-size: 2em;
 }
 
 .volume-bar {
@@ -162,4 +171,45 @@ input[type=range]::-webkit-slider-thumb {
 
 .off {
   display: none;
+}
+
+#game-how {
+  text-align: center;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  padding: 20px 30px;
+  background-color: antiquewhite;
+}
+
+#game-how:hover {
+  -webkit-animation-name: btnEvent;
+          animation-name: btnEvent;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+@-webkit-keyframes btnEvent {
+  30% {
+    transform: rotate(-5deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes btnEvent {
+  30% {
+    transform: rotate(-5deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }/*# sourceMappingURL=index.css.map */

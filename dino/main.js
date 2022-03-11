@@ -1,41 +1,40 @@
 const cactus = document.getElementById('cactus')
-const Dino = document.getElementById('dino')
+const playerBox = document.getElementById('player')
 const Cac_ctx = cactus.getContext('2d')
-const Dino_ctx = Dino.getContext('2d')
+const Dino_ctx = playerBox.getContext('2d')
 const scoreBox = document.getElementById('score')
 const lifeBox = document.getElementById('life')
 const container = document.getElementById('container')
 const game_play_container = document.getElementById('game-play')
 const audioBtn = document.getElementById('audio_play')
-const mainAudio = document.getElementById('main-bgm')
-const hurtAudio = document.getElementById('hurt-bgm')
-const eatAudio = document.getElementById('eat-bgm')
-const swingAudio = document.getElementById('swing-bgm')
 const bestScoreBox = document.getElementById('best-score')
 const footer = document.getElementById('score-box')
-let main_ele = document.getElementById('game-main')
+const startBtn = document.getElementById('start')
 
-const missAudio = document.getElementById('miss-bgm')
+let mainBox = document.getElementById('game-main')
+let howPlayBox = document.getElementById('game-how')
 
+const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm] = document.querySelectorAll('audio')
 
-//기준 height는 일단 690px
-//cactus=오렌지 dino=초록 큰컨테이너=빨강 게임플레이박스=갈색 게임메인박스=파랑
-cactus.width = window.innerWidth -600;
-cactus.height = main_ele.offsetHeight
-Dino.width = 300;
-Dino.height = main_ele.offsetHeight
+const playerImg = new Image()
+playerImg.src='./Image/캐릭.jpeg'
 
+//데이터상 필요한부분
+const foodImg=document.getElementsByClassName('img')
 let timer =0;
 let cactusArray=[];
 let score = 0;
 let life=3;
 let bestScore = localStorage.getItem('bestScore')?localStorage.getItem('bestScore'):score
 bestScoreBox.textContent=`Best:${bestScore}`
-//window.innerWidth,Height가 뷰포트의 width,height를 받아오는거같다(mdn검색)
-const DinoImg = new Image()
-DinoImg.src='./Image/캐릭.jpeg'
-const foodImg=document.getElementsByClassName('img')
-const startBtn = document.getElementById('start')
+
+/* ------------------------------ */ 
+
+//기준 height는 일단 690px
+cactus.width = window.innerWidth -600;
+cactus.height = mainBox.offsetHeight;
+playerBox.width = 300;
+playerBox.height = mainBox.offsetHeight;
 
 class Cactus{
     constructor(x,y,width,height,img,eat){
@@ -47,7 +46,7 @@ class Cactus{
         this.eat=eat
     }
     create(){
-            Cac_ctx.fillStyle = 'red'
+            Cac_ctx.fillStyle = 'white'
             Cac_ctx.fillRect (this.x,this.y, this.width, this.height);
             Cac_ctx.drawImage(this.img,this.x,this.y,this.width,this.height)
     }
@@ -61,41 +60,44 @@ class Doll{
         this.img=img
     }
     create(){
-            Dino_ctx.fillStyle = 'red'
+            Dino_ctx.fillStyle = 'white'
             Dino_ctx.fillRect (this.x,this.y, this.width, this.height);
             Dino_ctx.drawImage(this.img,this.x,this.y,this.width,this.height)
     }
 }
-let dino = new Doll(100,0,100,100,DinoImg)
+//player 생성 -> 이미지 로드되면 캔버스에 create
+let player = new Doll(100,0,100,100,playerImg)
+playerImg.onload=function(){
+    player.create()
+}
+//
 audioBtn.addEventListener('click',function(){
     //내생각에 this를못쓰는 이유는 화살표함수여서인듯 => 정답
     if(this.getAttribute('aria-checked') === 'false'){
-        mainAudio.play();
-        mainAudio.loop = true
+        mainBgm.play();
+        mainBgm.loop = true
         this.setAttribute('aria-checked',"true")
         this.classList.remove('play_on')
         this.classList.add('play_off')
     }
     else if(this.getAttribute('aria-checked') === 'true'){
-        mainAudio.pause();
+        mainBgm.pause();
         this.setAttribute('aria-checked',"false")
         this.classList.remove('play_off')
         this.classList.add('play_on')
     }
 })
-startBtn.addEventListener('click',()=>{
+startBtn.addEventListener('click',function(){
     if(audioBtn.getAttribute('aria-checked') === 'true'){
-        mainAudio.play();
+        mainBgm.play();
     }
     game_play_container.classList.add('on')
     game_play_container.classList.remove('off')
     footer.classList.remove('off')
     footer.classList.add('on')
-
-    main_ele.remove();
-
+    mainBox.remove();
     window.addEventListener('keydown',(e)=>{
-        if(e.key === ' ' && dino.y===200){
+        if(e.key === ' ' && player.y===200){
             jumpDino()
         }
         else{ 
@@ -105,26 +107,31 @@ startBtn.addEventListener('click',()=>{
     createCactus();
     }
 )
+howPlayBox.addEventListener('click',function(){
+    console.log(mainBox)
+    let template=`
+    <div>Hello World!</div>
+    `
+    mainBox.innerHTML=template
+})
 
 
 function moveDino(arrow){
-    Dino_ctx.clearRect(dino.x,dino.y,dino.width,dino.height)
+    Dino_ctx.clearRect(player.x,player.y,player.width,player.height)
     if(arrow === 'ArrowUp'){
-        if(dino.y !== 0){
-            dino.y = dino.y-((Dino.height-dino.height)/2);
+        if(player.y !== 0){
+            player.y = player.y-((playerBox.height-player.height)/2);
         }
     }
     if(arrow === 'ArrowDown'){
-        if(dino.y !== Dino.height-dino.height){
-            dino.y = dino.y+((Dino.height-dino.height)/2);
+        if(player.y !== playerBox.height-player.height){
+            player.y = player.y+((playerBox.height-player.height)/2);
         }
     }
-    dino.create()
+    player.create()
 }
 
-DinoImg.onload=function(){
-    dino.create()
-}
+
 function newCactusItem(x,y,width,height,img,eat){
     let cactusItem = new Cactus(x,y,width,height,img,eat);
     cactusArray.push(cactusItem)
@@ -146,10 +153,10 @@ function createCactus(){
     let randomFood = foodImg[randomIndex]
     timer++;
     if(timer%60 === 0){
-        newCactusItem(800,(Dino.height-dino.height),70,70,randomFood,String(randomFood.dataset.eat))
+        newCactusItem(800,(playerBox.height-player.height),70,70,randomFood,String(randomFood.dataset.eat))
     }
     if(timer%200 === 0){
-        newCactusItem(800,(Dino.height-dino.height)/2,70,70,randomFood,String(randomFood.dataset.eat))
+        newCactusItem(800,(playerBox.height-player.height)/2,70,70,randomFood,String(randomFood.dataset.eat))
     }
     if(timer%123 === 0){
         newCactusItem(800,0,70,70,randomFood,String(randomFood.dataset.eat))
@@ -160,40 +167,37 @@ function createCactus(){
 function moveCactus(array=[]){
     if(array.length!==0){
         array.forEach((item,index) => {
-            let case1 = (item.x <= dino.x+dino.width) && item.y === dino.y//직선먹을때
+            let case1 = (item.x <= player.x+player.width) && item.y === player.y//직선먹을때
             // 조건을 묶을수있겟지만 일단 그러지말자 => 먹는케이스를 다시생각
             function RectOut(){
                 Cac_ctx.clearRect(item.x,item.y,item.width,item.height);
                 array.splice(index,1)
                 //넘어갔을때 아픈소리내고 
             }
-            // let CASE1 = dino.x+(dino.width/2) > item.x+item.width
+            // let CASE1 = player.x+(player.width/2) > item.x+item.width
             let CASE2 = item.x === 0
             if(case1){
-                if(item.x+item.width < dino.x === false){
-                    /*
-                    먹는소리가 진행중에 먹으면 계속 오디오가 진행중이어서 새로 소리가안남
-                    -> audio가 틀어져잇으면 새로틀고싶은데 새로 트는게아니라 pause는 일시정지라 원하는대로 안된다....
-                    */
+                if(item.x+item.width < player.x === false){
                     //캐릭터가 먹을시
                     if(item.eat === 'false'){
-                        hurtAudio.play()
+                        //비정상 음식먹음
+                        hurtBgm.play()
                         life-=1;
                         lifeBox.textContent=`LIFE:${life}`
                     }
                     else{
                         //정상적으로 먹음
-                        eatAudio.play()
+                        eatBgm.play()
                         score += 100;
                         scoreBox.textContent=`SCORE:${score}`
                     }
                     RectOut();
                 }
                 else{
+                    //안먹엇을시
                 Cac_ctx.clearRect(item.x,item.y,item.width,item.height);
-                if(item.x === 0){
-                    //캐릭터가 애썻지만 넘어갈시
-                    missAudio.play()
+                if(item.x === 0){//아깝게 못먹엇을시
+                    missFoodBgm.play()
                     RectOut();
                     return;
                 }
@@ -202,17 +206,17 @@ function moveCactus(array=[]){
                 }
             }   
             else if(CASE2){
-                //그냥장애물이 넘어갈시
+                //그냥흘렷을시
                 RectOut();
                 if(item.eat === 'true'){
                     life-=1;
                     lifeBox.textContent=`LIFE:${life}`
-                    missAudio.play()
+                    missFoodBgm.play()
                 }else{
-                    swingAudio.play()
+                    swingBgm.play()
                 }
             }
-            else{
+            else{//그냥 움직이는상태
                 Cac_ctx.clearRect(item.x,item.y,item.width,item.height);
                 //장애물 속도 조절부분 => 위와 중복이지만 중간에 코드를 삽입해야되서 함수처리하진않겟다
                 item.x = item.x - 10;

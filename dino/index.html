@@ -9,32 +9,35 @@
 </head>
     <body>
         <div id="container" class="on">
+            <div id="game-how">How to play</div>
             <div id="game-main">
-                <div class="font game-title">Cha's Ass
-                </div>
-                <div class="test">
-                    <div id="start">Game start</div>
-                    <div id="best-score">Best:0</div>
+                <div class="font game-title">Yummy Yummy</div>
+                <div class="game-buttons">
+                    <div id="start" class="btn">Game start
+                    </div>
+                    <div id="best-score" class="btn">Best:0</div>
                 </div>
             </div>
             <div class="bgm-container">
-                <div id="audio_play" class="play_on" aria-checked="false"></div>
+                <div id="audio_play" class="play_on" aria-checked="false">
+                    <div>BGM</div>
+                </div>
             </div>
             <div id="game-play" class="off">
                 <canvas id="cactus" height="300"></canvas>
-                <canvas id="dino" height="100"></canvas>
+                <canvas id="player" height="100"></canvas>
             </div>
-            <audio id="main-bgm" src="./WAV/남극탐험.mp3" crossorigin="anonymous" ></audio>
-            <audio id="eat-bgm" src="./WAV/eat.mp3"></audio>
-            <audio id="swing-bgm" src="./WAV/swing.wav"></audio>
-            <audio id="hurt-bgm" src="./WAV/hurt.mp3"></audio>
-            <audio id="miss-bgm" src="./WAV/놉.mp3"></audio>
-            <img data-eat="true" src="./Image/국밥.jpeg" class="img off">
-            <img data-eat="false" src="./Image/민트초코.jpeg" class="img off">
-            <img data-eat="true" src="./Image/햄버거.jpeg" class="img off">
-            <img data-eat="true" src="./Image/치킨.jpeg" class="img off">
-            <img data-eat="false" src="./Image/지코.jpeg" class="img off">
         </div>
+        <audio id="main-bgm" src="./WAV/남극탐험.mp3" crossorigin="anonymous" ></audio>
+        <audio id="eat-bgm" src="./WAV/eat.mp3"></audio>
+        <audio id="swing-bgm" src="./WAV/swing.wav"></audio>
+        <audio id="hurt-bgm" src="./WAV/hurt.mp3"></audio>
+        <audio id="miss-bgm" src="./WAV/놉.mp3"></audio>
+        <img data-eat="true" src="./Image/국밥.jpeg" class="img off">
+        <img data-eat="false" src="./Image/민트초코.jpeg" class="img off">
+        <img data-eat="true" src="./Image/햄버거.jpeg" class="img off">
+        <img data-eat="true" src="./Image/치킨.jpeg" class="img off">
+        <img data-eat="false" src="./Image/지코.jpeg" class="img off">
         <div id='score-box' class="off">
             <div class="footer">
                 <div id="score">SCORE:0</div>

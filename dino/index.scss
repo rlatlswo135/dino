@@ -20,24 +20,17 @@ h1 {
   display: block;
 }
 
-#cactus {
-  border: 5px solid orange;
-}
-#dino {
+#player {
   position: absolute;
-  //   margin-top: 5%;
   top: 0px;
   left: 0;
-  border: 5px solid green;
 }
 
 #container {
-  border: 3px solid red;
   position: relative;
 }
 
 #game-main {
-  border: 1px solid blue;
   text-align: center;
   padding: 5% 0%;
   width: 80%;
@@ -62,7 +55,6 @@ h1 {
   margin: auto;
   width: 80%;
   height: 80%;
-  border: 3px solid brown;
   position: relative;
 }
 .bgm-container {
@@ -91,22 +83,37 @@ h1 {
     height: 100%;
   }
 }
-.test {
+.btn {
+  @extend .font;
+  border-radius: 10px;
+  background-color: antiquewhite;
+  font-size: 2em;
+  border-style: none;
+  padding: 5% 5%;
+  width: 30%;
+  margin-top: 2%;
+  position: relative;
+}
+.btn:hover {
+  animation-name: btnEvent;
+  animation-duration: 0.5s;
+}
+.game-buttons {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  div {
-    @extend .font;
-    background-color: antiquewhite;
-    font-size: 2em;
-    border-style: none;
-    padding: 5% 5%;
-    width: 30%;
-    margin-top: 2%;
-  }
 }
+
 #audio_play {
   position: relative;
+  left: 30px;
+  div {
+    @extend .font;
+    position: absolute;
+    top: 60px;
+    left: -5px;
+    font-size: 2em;
+  }
 }
 .volume-bar {
   width: 60px;
@@ -152,4 +159,31 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .off {
   display: none;
+}
+
+#game-how {
+  @extend .font;
+  text-align: center;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  padding: 20px 30px;
+  background-color: antiquewhite;
+}
+#game-how:hover {
+  animation-name: btnEvent;
+  animation-duration: 0.5s;
+}
+
+@keyframes btnEvent {
+  30% {
+    transform: rotate(-5deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
