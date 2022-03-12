@@ -8,7 +8,7 @@ body {
   padding: 5%;
 }
 
-.font, #game-how, #score, #life, #audio_play div, .btn, .game-title {
+.font, .game-over, #game-how, .footer #score, .footer #level, .footer #life, #audio_play div, .btn, .game-main-title {
   transform: translate(0.02deg);
   font-family: game;
 }
@@ -27,6 +27,8 @@ h1 {
   position: absolute;
   top: 0px;
   left: 0;
+  border: 1px solid blue;
+  border-left: 3px solid tomato;
 }
 
 #container {
@@ -56,10 +58,11 @@ h1 {
 }
 
 #game-play {
-  margin: auto;
-  width: 80%;
+  margin-left: 8%;
+  width: 92%;
   height: 80%;
   position: relative;
+  border: 2px solid green;
 }
 
 .bgm-container {
@@ -69,14 +72,14 @@ h1 {
   padding: 1%;
 }
 
-.game-title {
+.game-main-title {
   text-align: center;
   font-size: 5em;
   position: relative;
   z-index: 5;
   padding: 5%;
 }
-.game-title .game-title-img {
+.game-main-title .game-title-img {
   background-image: url("./Image/배경.jpeg");
   background-size: cover;
   position: absolute;
@@ -107,10 +110,21 @@ h1 {
           animation-duration: 0.5s;
 }
 
-.game-buttons {
+.game-main-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.game-main-content .how {
+  text-align: left;
+  font-size: 1.3em;
+  width: 100%;
+  padding: 10%;
+}
+
+.how {
+  background-color: antiquewhite;
+  width: 30%;
 }
 
 #audio_play {
@@ -120,7 +134,7 @@ h1 {
 #audio_play div {
   position: absolute;
   top: 60px;
-  left: -5px;
+  left: -3px;
   font-size: 2em;
 }
 
@@ -154,19 +168,21 @@ input[type=range]::-webkit-slider-thumb {
   transition: background 0.3s ease-in-out;
 }
 
-#score, #life {
+.footer {
+  display: flex;
+  justify-content: center;
+}
+.footer #score, .footer #level, .footer #life {
+  background-color: yellow;
   font-size: 2em;
   padding: 1%;
   letter-spacing: 5px;
 }
-
-#life {
-  color: red;
+.footer #life {
+  background-color: tomato;
 }
-
-.footer {
-  display: flex;
-  justify-content: center;
+.footer #level {
+  background-color: skyblue;
 }
 
 .off {
@@ -190,6 +206,51 @@ input[type=range]::-webkit-slider-thumb {
           animation-duration: 0.5s;
 }
 
+#bgm-range {
+  position: absolute;
+  top: -10px;
+  left: 35px;
+}
+
+#cactus {
+  border: 1px solid red;
+}
+
+#game-play::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("./Image/배경.jpeg");
+  background-size: cover;
+  z-index: -1;
+  opacity: 0.5;
+  content: "";
+}
+
+.game-over {
+  color: red;
+  text-align: center;
+  padding-top: 80px;
+  font-size: 7em;
+  position: absolute;
+  top: 230px;
+  left: 500px;
+  background-color: antiquewhite;
+  width: 500px;
+  height: 300px;
+  transition: all 1s;
+  -webkit-animation-name: gameOver;
+          animation-name: gameOver;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+}
+.game-over p {
+  font-size: 0.3em;
+  color: black;
+}
+
 @-webkit-keyframes btnEvent {
   30% {
     transform: rotate(-5deg);
@@ -211,5 +272,27 @@ input[type=range]::-webkit-slider-thumb {
   }
   100% {
     transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes gameOver {
+  30% {
+    transform: rotate(120deg);
+  }
+  70% {
+    transform: rotate(240deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes gameOver {
+  30% {
+    transform: rotate(120deg);
+  }
+  70% {
+    transform: rotate(240deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }/*# sourceMappingURL=index.css.map */
