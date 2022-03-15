@@ -1,28 +1,53 @@
+let alreadyPlay = 'false'
+const cactus = document.getElementById('cactus')
+const playerBox = document.getElementById('player')
+const Cac_ctx = cactus.getContext('2d')
+const Player_ctx = playerBox.getContext('2d')
+const scoreBox = document.getElementById('score')
+const lifeBox = document.getElementById('life')
+const levelBox = document.getElementById('level')
+const game_play_container = document.getElementById('game-play')
+let gameOverBox = document.getElementsByClassName('game-over')[0]
+const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
 
+class Cactus{
+    constructor(x,y,width,height,img,eat){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.img=img
+        this.eat=eat
+    }
+    create(){
+        Cac_ctx.fillStyle = '#ffffff00'
+        Cac_ctx.fillRect (this.x,this.y, this.width, this.height);
+        Cac_ctx.drawImage(this.img,this.x,this.y,this.width,this.height)
+    }
+}
+class Doll{
+    constructor(x,y,width,height,img){
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.img=img
+    }
+    create(){
+        Player_ctx.fillStyle = '#ffffff00'
+        Player_ctx.fillRect (this.x,this.y, this.width, this.height);
+        Player_ctx.drawImage(this.img,this.x,this.y,this.width,this.height)
+    }
+}
+const playerImg = new Image()
+playerImg.src='./Image/캐릭.jpeg'
+let player = new Doll(150,0,100,100,playerImg)
 export function gamePlay(){
-    const cactus = document.getElementById('cactus')
-    const playerBox = document.getElementById('player')
-    const Cac_ctx = cactus.getContext('2d')
-    const Player_ctx = playerBox.getContext('2d')
-    const scoreBox = document.getElementById('score')
-    const lifeBox = document.getElementById('life')
-    let mainBgm_range = document.getElementById('bgm-range')
-    const container = document.getElementById('container')
-    const game_play_container = document.getElementById('game-play')
-    const audioBtn = document.getElementById('audio_play')
-    const bestScoreBox = document.getElementById('best-score')
-    const footerBox = document.getElementById('score-box')
-    const startBtn = document.getElementById('start')
-    const levelBox = document.getElementById('level')
-    const backBtn = document.getElementById('back')
-    let mainBox = document.getElementById('game-main')
-    let howPlayBox = document.getElementById('game-how')
-    let gameOverBox = document.getElementsByClassName('game-over')[0]
-    
-    const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
-    const playerImg = new Image()
-    playerImg.src='./Image/캐릭.jpeg'
-    
+    /*
+    지금드는 해결생각 -> player를 전역으로,
+    */
+    //player 생성 -> 이미지 로드되면 캔버스에 create
+        player.create()
     //데이터상 필요한부분
     const foodImg=document.getElementsByClassName('img')
     let timer =0;
@@ -31,113 +56,30 @@ export function gamePlay(){
     let level = 1;
     let speed = 10;
     let life=3;
-    let alreadyPlay = 'false'
+    lifeBox.textContent=`LIFE:${life}`;
+    levelBox.textContent=`LEVEL:${level}`;
+    scoreBox.textContent=`SCORE:${score}`;
     
     /* ------------------------------ */ 
-    
-    function reset(){
-        cactusArray.forEach(food => Cac_ctx.clearRect(food.x,food.y,food.width,food.height))
-        Player_ctx.clearRect(player.x,player.y,player.width,player.height)
-        cactusArray=[];
-        timer=0;
-        score=0;
-        level=1;
-        speed=10;
-        life=3; 
-        lifeBox.textContent=`LIFE:${life}`;
-        levelBox.textContent=`LEVEL:${level}`;
-        scoreBox.textContent=`SCORE:${score}`;
-        player = new Doll(150,0,100,100,playerImg)
-        player.create()
+    if(alreadyPlay === 'false'){
+        window.addEventListener('keydown',(e)=>{
+                movePlayer(e.key)
+                alreadyPlay = 'true'
+        })
     }
+
     //기준 height는 일단 690px
-    cactus.width = window.innerWidth -270;
-    cactus.height = mainBox.offsetHeight;
+    const gpc_width = window.getComputedStyle(game_play_container).width
+    const gpc_height = window.getComputedStyle(game_play_container).height
+    cactus.width = Number(gpc_width.slice(0,gpc_width.length-2))
+    cactus.height = Number(gpc_height.slice(0,gpc_height.length-2))-5
     playerBox.width = 300;
-    playerBox.height = mainBox.offsetHeight;
-    
-    class Cactus{
-        constructor(x,y,width,height,img,eat){
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.img=img
-            this.eat=eat
-        }
-        create(){
-                Cac_ctx.fillStyle = '#ffffff00'
-                Cac_ctx.fillRect (this.x,this.y, this.width, this.height);
-                Cac_ctx.drawImage(this.img,this.x,this.y,this.width,this.height)
-        }
-    }
-    class Doll{
-        constructor(x,y,width,height,img){
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.img=img
-        }
-        create(){
-                Player_ctx.fillStyle = '#ffffff00'
-                Player_ctx.fillRect (this.x,this.y, this.width, this.height);
-                Player_ctx.drawImage(this.img,this.x,this.y,this.width,this.height)
-        }
-    }
-    //player 생성 -> 이미지 로드되면 캔버스에 create
-    let player = new Doll(150,0,100,100,playerImg)
-    playerImg.onload=function(){
+    playerBox.height = Number(gpc_height.slice(0,gpc_height.length-2))-5
+    function gameStart(){
         player.create()
+        createCactus();
     }
-    //
-    backBtn.addEventListener('click',function(){
-        reset()
-        mainBox.classList.toggle('off')
-        game_play_container.classList.toggle('off')
-        gameOverBox.classList.toggle('off')
-        footerBox.classList.toggle('off')
-        alreadyPlay = 'true'
-    })
-    mainBgm_range.addEventListener('input',function(){
-        mainBgm.volume=this.value
-    })
-    audioBtn.addEventListener('click',function(){
-        //내생각에 this를못쓰는 이유는 화살표함수여서인듯 => 정답
-        if(this.getAttribute('aria-checked') === 'false'){
-            mainBgm.volume=0.5;
-            mainBgm.play();
-            mainBgm.loop = true
-            this.setAttribute('aria-checked',"true")
-            this.classList.remove('play_on')
-            this.classList.add('play_off')
-        }
-        else if(this.getAttribute('aria-checked') === 'true'){
-            mainBgm.pause();
-            this.setAttribute('aria-checked',"false")
-            this.classList.remove('play_off')
-            this.classList.add('play_on')
-        }
-    })
-    startBtn.addEventListener('click',function(){
-            if(audioBtn.getAttribute('aria-checked') === 'true'){
-                mainBgm.play();
-            }
-            howPlayBox.classList.add('off')
-            game_play_container.classList.toggle('off')
-            footerBox.classList.toggle('off')
-            mainBox.classList.toggle('off');
-            if(alreadyPlay === 'false'){
-                window.addEventListener('keydown',(e)=>{
-                        movePlayer(e.key)
-                })
-            }
-            createCactus();
-        }
-    )
-    
-    
-    
+           
     function movePlayer(arrow){
         Player_ctx.clearRect(player.x,player.y,player.width,player.height)
         if(arrow === 'ArrowUp'){
@@ -165,7 +107,12 @@ export function gamePlay(){
             mainBgm.pause();
             // 웃는소리틀꺼
             gameOverBox.classList.toggle('off')
-            setTimeout(()=>gameEndBgm.play(),700)
+            Player_ctx.clearRect(player.x,player.y,player.width,player.height)
+            player.x=150;
+            player.y=0;
+            setTimeout(()=>{
+                gameEndBgm.play()
+            },500)
             if(localStorage.getItem('bestScore')){
                 if(score > localStorage.getItem('bestScore')){
                     localStorage.setItem('bestScore',score)
@@ -180,13 +127,13 @@ export function gamePlay(){
         let randomFood = foodImg[randomIndex]
         timer++;
         if(timer%60 === 0){
-            newCactusItem(cactus.width,(playerBox.height-player.height),70,70,randomFood,String(randomFood.dataset.eat))
+            newCactusItem(cactus.width,(playerBox.height-player.height),100,100,randomFood,String(randomFood.dataset.eat))
         }
         if(timer%200 === 0){
-            newCactusItem(cactus.width,(playerBox.height-player.height)/2,70,70,randomFood,String(randomFood.dataset.eat))
+            newCactusItem(cactus.width,(playerBox.height-player.height)/2,100,100,randomFood,String(randomFood.dataset.eat))
         }
         if(timer%123 === 0){
-            newCactusItem(cactus.width,0,70,70,randomFood,String(randomFood.dataset.eat))
+            newCactusItem(cactus.width,0,100,100,randomFood,String(randomFood.dataset.eat))
         }
         moveCactus(cactusArray)
     }
@@ -211,6 +158,7 @@ export function gamePlay(){
                         //캐릭터가 먹을시
                         if(food.eat === 'false'){
                             //비정상 음식먹음
+                            hurtBgm.load()
                             hurtBgm.play()
                             lifeRemoveOne()
                         }
@@ -268,7 +216,7 @@ export function gamePlay(){
             })
         }
     }
-    
+    gameStart()
     //필살기같은것도 만들어서 음식다없어지게하는것도 잇으면 좋을듯?
 }
 

@@ -1,8 +1,10 @@
 @font-face {
   //새로배웟네 @font-face는 내가원하는 이름,경로로 폰트를 하나 만들어내는것같다
   font-family: "game";
-  src: url("./VCR_OSD_MONO_1.001.ttf");
+  src: url("./font/VCR_OSD_MONO_1.001.ttf");
 }
+$game-play-width: 1900px;
+$game-play-height: 800px;
 body {
   margin: 0px;
   padding: 5%;
@@ -24,7 +26,6 @@ h1 {
   position: absolute;
   top: 0px;
   left: 0;
-  border: 1px solid blue;
   border-left: 3px solid tomato;
 }
 
@@ -37,6 +38,7 @@ h1 {
   padding: 5% 0%;
   width: 80%;
   height: 80%;
+  border: 1px solid gray;
   margin: auto;
   position: relative;
   background-image: url("./Image/배경.jpeg");
@@ -46,17 +48,17 @@ h1 {
 .play_on {
   width: 50px;
   height: 50px;
-  background-image: url("./soundOnOff/soundOnBlack.png");
+  background-image: url("./Image/soundOnBlack.png");
   background-size: cover;
 }
 .play_off {
   @extend .play_on;
-  background-image: url("./soundOnOff/soundOffBlack.png");
+  background-image: url("./Image/soundOffBlack.png");
 }
 #game-play {
   margin-left: 8%;
-  width: 92%;
-  height: 80%;
+  width: $game-play-width;
+  height: $game-play-height;
   position: relative;
   border: 2px solid green;
 }
@@ -198,7 +200,7 @@ input[type="range"]::-webkit-slider-thumb {
 #bgm-range {
   position: absolute;
   top: -10px;
-  left: 35px;
+  left: 42px;
 }
 #cactus {
   border: 1px solid red;
@@ -222,10 +224,10 @@ input[type="range"]::-webkit-slider-thumb {
   padding-top: 80px;
   font-size: 7em;
   position: absolute;
-  top: 230px;
-  left: 500px;
+  top: ($game-play-height/2)-150px;
+  left: ($game-play-width/2)-500px;
   background-color: antiquewhite;
-  width: 500px;
+  width: 1000px;
   height: 300px;
   transition: all 1s;
   animation-name: gameOver;

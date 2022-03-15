@@ -3,8 +3,61 @@ let mainBox = document.getElementById('game-main')
 let howPlayBox = document.getElementById('game-how')
 let howSwitch = 'true';
 let bestScore = localStorage.getItem('bestScore')?localStorage.getItem('bestScore'):0
+const audioBtn = document.getElementById('audio_play')
+const game_play_container = document.getElementById('game-play')
+const footerBox = document.getElementById('score-box')
+let mainBgm_range = document.getElementById('bgm-range')
+const backBtn = document.getElementById('back')
+let gameOverBox = document.getElementsByClassName('game-over')[0]
+
+
+const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
 function renderView(container,template){
     container.innerHTML = template
+}
+function backBtnEvent(){
+    mainBox.classList.toggle('off')
+    game_play_container.classList.toggle('off')
+    gameOverBox.classList.toggle('off')
+    footerBox.classList.toggle('off')
+    howPlayBox.classList.toggle('off')
+    audioBtn.setAttribute('aria-checked',"false")
+    audioBtn.classList.remove('play_off')
+    audioBtn.classList.add('play_on')
+}
+function startBtn_addEvent(){
+    const startBtn = document.getElementById('start')
+    startBtn.addEventListener('click',function(){
+        if(audioBtn.getAttribute('aria-checked') === 'true'){
+            mainBgm.play();
+        }
+        howPlayBox.classList.add('off')
+        game_play_container.classList.toggle('off')
+        footerBox.classList.toggle('off')
+        mainBox.classList.toggle('off');
+        gamePlay();
+    })
+}
+
+function audioBtnEvent(ele){
+    if(ele.getAttribute('aria-checked') === 'false'){
+        mainBgm.volume=0.5;
+        mainBgm.play();
+        mainBgm.loop = true
+        ele.setAttribute('aria-checked',"true")
+        ele.classList.remove('play_on')
+        ele.classList.add('play_off')
+    }
+    else if(ele.getAttribute('aria-checked') === 'true'){
+        mainBgm.pause();
+        ele.setAttribute('aria-checked',"false")
+        ele.classList.remove('play_off')
+        ele.classList.add('play_on')
+    }
+}
+function mainBgm_rangeEvent(value){
+    mainBgm.volume = value
+
 }
 howPlayBox.addEventListener('click',function(){
         if(howSwitch === 'false'){
@@ -18,23 +71,25 @@ howPlayBox.addEventListener('click',function(){
             </div>
             `)
             howPlayBox.textContent = 'How to Play'
-            gamePlay();
+            startBtn_addEvent()
         }else{
             howSwitch='false';
             renderView(mainBox,`
             <div class="game-main-title">How To Play</div>
             <div class="game-main-content how">
-                <div class="how">음식을 먹으세요</div>
-                <div class="how">그렇다고 다먹으면 안됩니다..</div>
-                <div class="how">운없으면 억까패턴 나와요..</div>
-                <div style="color:red" class="how">소리나오니까 주의하시구요..</div>
+                <div class="how">음식이 나오면 <span style="color:red">가려서</span> 먹으세요</div>
+                <div class="how">Life존재합니다. Score에따라 빨라집니다</div>
+                <div style="color:red" class="how">전체화면을 권장합니다.......</div>
+                <div style="color:red" class="how">소리나오니까 주의하시구요......</div>
             </div>
             `);
             howPlayBox.textContent = 'B A C K'
         }
     })
 
-function mainView(fun=null){
+function mainView(){
+    audioBtn.addEventListener('click',(e)=>audioBtnEvent(e.target))
+    mainBgm_range.addEventListener('input',(e)=>mainBgm_rangeEvent(e.target.value))
     renderView(mainBox,`
     <div class="font game-main-title">Yummy Yummy</div>
     <div class="game-main-content">
@@ -43,9 +98,10 @@ function mainView(fun=null){
         <div id="best-score" class="btn">Best:${bestScore}</div>
     </div>
     `)
-    if(fun !== null) fun()
+    startBtn_addEvent()
+    backBtn.addEventListener('click',backBtnEvent)
 }
 
-mainView(gamePlay)
+mainView()
 //새로고침후 최초렌더시에 베스트스코어 0인거. => 하우투플레이를 클릭후 돌아올때만 bestScore받아와서 넣으니까
 
