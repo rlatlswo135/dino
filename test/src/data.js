@@ -1,5 +1,6 @@
 import ohJeju from './slideImg/ohJeju.png'
 import umMarket from './slideImg/umMarket.png'
+import coinTracker from './slideImg/coinTracker.png'
 
 export const data = {
     2022:[
@@ -11,6 +12,15 @@ export const data = {
             git:'https://github.com/rlatlswo135/UmMarket',
             type:'Solo',
             url:"https://rlatlswo135.github.io/"
+        },
+        {
+            title:'Coin-Trackker',
+            content:`API이용 간단한 Coin 시세 Tracker`,
+            img:coinTracker,
+            month:4,
+            git:'https://github.com/rlatlswo135/coin-track',
+            type:'Solo',
+            url:"https://rlatlswo135.github.io/coin-track/"
         }
     ],
     2021:[

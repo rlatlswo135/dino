@@ -54,10 +54,16 @@ const Text = styled.div`
     }
     h2{
         opacity: 0.2;
+        span{
+            font-size:0.7em;
+            padding-left:3%;
+        }
     }
     div{
         padding-top: 20%;
-        font-size:1.5em
+        font-size:1.5em;
+        display:flex;
+        flex-direction: column;
     }
 `
 const Link = styled.a`
@@ -67,6 +73,11 @@ const Link = styled.a`
 const GoGit = styled.a`
     transition: all 0.5s;
     opacity: 0.8;
+    margin-bottom:5%;
+    span{
+        padding-left:3%;
+        font-size:0.5em;
+    }
     &:hover{
         text-decoration: underline;
     }
@@ -88,10 +99,11 @@ const UmMarket = (props) => {
                 <Text>
                     <h1>{filterArray.title}</h1>
                     <h3>{filterArray.content}</h3>
-                    <h2>{`${filterArray.type}-Project`}</h2>
+                    <h2>{`${filterArray.type}-Project`}{filterArray.type === 'Team' ? <span>(Back-End)</span> : null}</h2>
                     <h4>{`<- Click`}</h4>
                     <div>
-                        <GoGit href={filterArray.git} target="_blank">Go to Git</GoGit>
+                        <GoGit href={filterArray.git} target="_blank">Git</GoGit>
+                        {filterArray.notion ? <GoGit href={filterArray.notion} target="_blank">Notion<span>(상세기능)</span></GoGit>:null}
                     </div>
                 </Text>
             </Content>

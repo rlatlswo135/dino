@@ -7,8 +7,10 @@ import {FullPage,Slide} from 'react-full-page'
 import Carousel from 'react-spring-3d-carousel'
 import ohJeju from '../slideImg/ohJeju.png'
 import umMarket from '../slideImg/umMarket.png'
+import coinTracker from '../slideImg/coinTracker.png'
 import { config,useSpring,animated,useTransition } from 'react-spring';
-import { faLessThanEqual } from '@fortawesome/free-solid-svg-icons';
+import {useNavigate} from 'react-router-dom'
+// import {FallingLines} from 'react-loader-spinner'
 
 
 const appearAni = keyframes`
@@ -17,6 +19,10 @@ const appearAni = keyframes`
     }to{
         opacity: 1;
     }
+`
+const testAni = keyframes`
+    from{opacity:0.4;}
+    to{opacity:0.9;}
 `
 const BoxOne = styled.div`
     height:100vh;
@@ -61,7 +67,7 @@ const Profile2 = styled.div`
 const ProfileContent = styled.div`
 /* 글씨부분 */
     position: absolute;
-    margin-top: 15%;    
+    margin-top: 11%;    
     margin-left: 25%;
     z-index:100;
     font-size:5em;
@@ -90,7 +96,7 @@ const Third = styled.div`
 const ProfileContent2 = styled.p`
     font-size:3em;
     position: absolute;
-    margin-top: 3%;    
+    margin-top: 5%;    
     margin-left: 27%;
     padding-left:1%;
     ${Third}{
@@ -119,11 +125,26 @@ const SmallTitle = styled.div`
     background-color: rgba(50,50,50,1);
     z-index:200;
 `
+const ShowMore = styled.div`
+        position: absolute;
+        top:85%;
+        left:41%;
+        font-size:2.5em;
+        letter-spacing: 0.4em;
+        z-index:50;
+        font-weight: 900;
+        animation:2s linear 1s ${testAni} infinite;
+        &:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+`
 const CarouselBox = styled.div`
     flex:3;
     width:100%;
     height:100%;
     padding:0% 12%;
+    position: relative;
 `
 const BoxFour = styled(BoxThree)`
     justify-content: center;
@@ -153,6 +174,7 @@ const Test = styled.div`
 `
 // position을 static이 이 아닌 다른걸주면 수도셀렉터가 안먹는다;; 왜그러지? (&:hover등)
 const Home = () => {
+    const navigate = useNavigate();
     const [imgSlide,setImgSlide] = useState(0)
     const [sideAni,setSideAni] = useState(true)
     const [loading,setLoading] = useState(true)
@@ -171,15 +193,15 @@ const Home = () => {
     const slides = [
         {
           key: 1,
-          content: <img src={ohJeju} alt="1" />
+          content: <img src={ohJeju} style={{opacity:0.8}} alt="1" />
         },
         {
           key: 2,
-          content: <img src={umMarket} alt="2" />
+          content: <img src={umMarket} style={{opacity:0.8}} alt="2" />
         },
         {
             key: 3,
-            content: <img src="https://picsum.photos/800/600/?random" alt="3" />
+            content: <img src={coinTracker} style={{opacity:0.8}} alt="3" />
           }
       ].map((slide,index) => {return {...slide,onClick:()=>setImgSlide(index)}})
       
@@ -192,6 +214,9 @@ const Home = () => {
           }else{
               setSideAni(true)
           }
+      }
+      function clickFun(){
+          navigate('/port')
       }
       useEffect(()=>{
           setTimeout(()=>setLoading(false),1000)
@@ -243,6 +268,7 @@ const Home = () => {
                                 showNavigation={false}
                                 animationConfig={config.slow}
                                 />
+                                <ShowMore onClick={clickFun}>SHOW MORE</ShowMore>
                             </CarouselBox>
                         </BoxThree>
                         {/* 포폴 이미지슬라이드 밑에 show Project 하고 */}

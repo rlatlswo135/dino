@@ -12,7 +12,9 @@ const Title = styled.div`
     padding-left:0.7%;
 `
 const ProjectBox = styled.div`
-    /* display:flex; */
+    display:flex;
+    padding-left:0.5%;
+    padding-top:0.5%;
 `
 const Img = styled.img`
     background-size: cover;
@@ -41,7 +43,7 @@ const Cover = styled.div`
 
 const ImgWrap = styled.div`
     position: relative;
-    margin-left:0.7%;
+    margin-right:1.5%;
     margin-top:1%;
     width:250px;
     height:250px;
@@ -65,13 +67,11 @@ const Project = (props) => {
                 {props.data.projects.map(project => {
                     return(
                         <ImgWrap>
-                            {/* <Link to={`/port/${project.title}`}> */}
                             <Cover onClick={()=>clickFun(project,project.img)}>
                                 <h1>{project.title}</h1>
                                 <h2>{project.content}</h2>
                                 <h4>{`${props.data.year}-${project.month}월`}</h4>
                             </Cover>
-                            {/* </Link> */}
                             <Img src={project.img} data={project}></Img>
                         </ImgWrap>
                     )

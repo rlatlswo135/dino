@@ -54,7 +54,7 @@ const Port = () => {
                         return(
                             <Project data={{
                                 year:key,
-                                projects:data[key]
+                                projects:data[key].reverse()
                         }} />
                         )
                     })}
