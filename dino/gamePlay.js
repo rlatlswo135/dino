@@ -9,6 +9,7 @@ const levelBox = document.getElementById('level')
 const game_play_container = document.getElementById('game-play')
 let gameOverBox = document.getElementsByClassName('game-over')[0]
 const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
+let player;
 
 class Cactus{
     constructor(x,y,width,height,img,eat){
@@ -40,14 +41,16 @@ class Doll{
     }
 }
 const playerImg = new Image()
-playerImg.src='./Image/캐릭.jpeg'
-let player = new Doll(150,0,100,100,playerImg)
+playerImg.src='./Image/player.jpeg'
+playerImg.onload=function(){
+    player = new Doll(150,0,100,100,playerImg)
+}
+
 export function gamePlay(){
     /*
     지금드는 해결생각 -> player를 전역으로,
     */
     //player 생성 -> 이미지 로드되면 캔버스에 create
-        player.create()
     //데이터상 필요한부분
     const foodImg=document.getElementsByClassName('img')
     let timer =0;
@@ -126,7 +129,7 @@ export function gamePlay(){
         let randomIndex = Math.trunc(Math.random()*foodImg.length)
         let randomFood = foodImg[randomIndex]
         timer++;
-        if(timer%60 === 0){
+        if(timer%173 === 0){
             newCactusItem(cactus.width,(playerBox.height-player.height),100,100,randomFood,String(randomFood.dataset.eat))
         }
         if(timer%200 === 0){

@@ -9,13 +9,19 @@ const footerBox = document.getElementById('score-box')
 let mainBgm_range = document.getElementById('bgm-range')
 const backBtn = document.getElementById('back')
 let gameOverBox = document.getElementsByClassName('game-over')[0]
-
+console.log('!!')
+console.log(bestScore)
 
 const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
 function renderView(container,template){
     container.innerHTML = template
 }
 function backBtnEvent(){
+    const bestScoreBox = document.getElementById('best-score')
+    const bS = localStorage.getItem('bestScore')
+    //왜 ㅆ 다른박스는 수정되는데 베스트박스만안되냐고
+    //howTobox는 밑에 main이 render할때 만든다. 그러니까 애초에 박스를 찝어도 안찝히지 없으니까
+    //아우
     mainBox.classList.toggle('off')
     game_play_container.classList.toggle('off')
     gameOverBox.classList.toggle('off')
@@ -24,6 +30,7 @@ function backBtnEvent(){
     audioBtn.setAttribute('aria-checked',"false")
     audioBtn.classList.remove('play_off')
     audioBtn.classList.add('play_on')
+    bestScoreBox.textContent = `Best:${bS}`
 }
 function startBtn_addEvent(){
     const startBtn = document.getElementById('start')
@@ -63,7 +70,7 @@ howPlayBox.addEventListener('click',function(){
         if(howSwitch === 'false'){
             howSwitch='true'
             renderView(mainBox,`
-            <div class="font game-main-title">Yummy Yummy</div>
+            <div class="font game-main-title">Umm~ eating and Die</div>
             <div class="game-main-content">
                 <div id="start" class="btn">Game start
                 </div>
@@ -91,7 +98,7 @@ function mainView(){
     audioBtn.addEventListener('click',(e)=>audioBtnEvent(e.target))
     mainBgm_range.addEventListener('input',(e)=>mainBgm_rangeEvent(e.target.value))
     renderView(mainBox,`
-    <div class="font game-main-title">Yummy Yummy</div>
+    <div class="font game-main-title">Umm~ eating and Die</div>
     <div class="game-main-content">
         <div id="start" class="btn">Game start
         </div>
