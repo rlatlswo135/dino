@@ -9,8 +9,6 @@ const footerBox = document.getElementById('score-box')
 let mainBgm_range = document.getElementById('bgm-range')
 const backBtn = document.getElementById('back')
 let gameOverBox = document.getElementsByClassName('game-over')[0]
-console.log('!!')
-console.log(bestScore)
 
 const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
 function renderView(container,template){
