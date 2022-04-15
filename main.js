@@ -8,6 +8,7 @@ const game_play_container = document.getElementById('game-play')
 const footerBox = document.getElementById('score-box')
 let mainBgm_range = document.getElementById('bgm-range')
 const backBtn = document.getElementById('back')
+const arrow = document.getElementById('arrow')
 let gameOverBox = document.getElementsByClassName('game-over')[0]
 
 const[mainBgm,eatBgm,swingBgm,hurtBgm,missFoodBgm,levelUpBgm,gameEndBgm] = document.querySelectorAll('audio')
@@ -25,6 +26,7 @@ function backBtnEvent(){
     gameOverBox.classList.toggle('off')
     footerBox.classList.toggle('off')
     howPlayBox.classList.toggle('off')
+    arrow.classList.toggle('off')
     audioBtn.setAttribute('aria-checked',"false")
     audioBtn.classList.remove('play_off')
     audioBtn.classList.add('play_on')
@@ -38,6 +40,7 @@ function startBtn_addEvent(){
         }
         howPlayBox.classList.add('off')
         game_play_container.classList.toggle('off')
+        arrow.classList.toggle('off')
         footerBox.classList.toggle('off')
         mainBox.classList.toggle('off');
         gamePlay();
@@ -69,6 +72,7 @@ howPlayBox.addEventListener('click',function(){
             howSwitch='true'
             renderView(mainBox,`
             <div class="font game-main-title">Umm~ eating and Die</div>
+            <div id="arrow">----></div>
             <div class="game-main-content">
                 <div id="start" class="btn">Game start
                 </div>
@@ -81,6 +85,7 @@ howPlayBox.addEventListener('click',function(){
             howSwitch='false';
             renderView(mainBox,`
             <div class="game-main-title">How To Play</div>
+            <div id="arrow">----></div>
             <div class="game-main-content how">
                 <div class="how">음식이 나오면 <span style="color:red">가려서</span> 먹으세요</div>
                 <div class="how">Life존재합니다. Score에따라 빨라집니다</div>

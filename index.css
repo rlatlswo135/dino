@@ -188,6 +188,16 @@ input[type=range]::-webkit-slider-thumb {
   display: none;
 }
 
+#arrow {
+  position: absolute;
+  color: red;
+  font-size: 3em;
+  left: 84%;
+  font-weight: 900;
+  -webkit-animation: 0.5s moveArrow infinite;
+          animation: 0.5s moveArrow infinite;
+}
+
 #game-how {
   text-align: center;
   position: absolute;
@@ -293,5 +303,21 @@ input[type=range]::-webkit-slider-thumb {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes moveArrow {
+  from {
+    transform: translateX(-10px);
+  }
+  to {
+    transform: translateX(10px);
+  }
+}
+@keyframes moveArrow {
+  from {
+    transform: translateX(-10px);
+  }
+  to {
+    transform: translateX(10px);
   }
 }/*# sourceMappingURL=index.css.map */
