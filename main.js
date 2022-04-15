@@ -72,7 +72,6 @@ howPlayBox.addEventListener('click',function(){
             howSwitch='true'
             renderView(mainBox,`
             <div class="font game-main-title">Umm~ eating and Die</div>
-            <div id="arrow">----></div>
             <div class="game-main-content">
                 <div id="start" class="btn">Game start
                 </div>
@@ -85,7 +84,6 @@ howPlayBox.addEventListener('click',function(){
             howSwitch='false';
             renderView(mainBox,`
             <div class="game-main-title">How To Play</div>
-            <div id="arrow">----></div>
             <div class="game-main-content how">
                 <div class="how">음식이 나오면 <span style="color:red">가려서</span> 먹으세요</div>
                 <div class="how">Life존재합니다. Score에따라 빨라집니다</div>
