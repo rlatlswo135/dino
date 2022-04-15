@@ -1,0 +1,297 @@
+@font-face {
+  font-family: "game";
+  src: url("./font/VCR_OSD_MONO_1.001.ttf");
+}
+body {
+  margin: 0px;
+  padding: 5%;
+}
+
+.font, .game-over, #game-how, .footer #score, .footer #level, .footer #life, #audio_play div, .btn, .game-main-title {
+  transform: translate(0.02deg);
+  font-family: game;
+}
+
+div,
+h1 {
+  box-sizing: border-box;
+  margin: 0px;
+}
+
+.on {
+  display: block;
+}
+
+#player {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  border-left: 3px solid tomato;
+}
+
+#container {
+  position: relative;
+}
+
+#game-main {
+  text-align: center;
+  padding: 5% 0%;
+  width: 80%;
+  height: 80%;
+  border: 1px solid gray;
+  margin: auto;
+  position: relative;
+  background-image: url("./Image/bg.jpeg");
+  background-size: cover;
+}
+
+.play_on, .play_off {
+  width: 50px;
+  height: 50px;
+  background-image: url("./Image/soundOnBlack.png");
+  background-size: cover;
+}
+
+.play_off {
+  background-image: url("./Image/soundOffBlack.png");
+}
+
+#game-play {
+  margin-left: 8%;
+  width: 1900px;
+  height: 800px;
+  position: relative;
+  border: 2px solid green;
+}
+
+.bgm-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1%;
+}
+
+.game-main-title {
+  text-align: center;
+  font-size: 5em;
+  position: relative;
+  z-index: 5;
+  padding: 5%;
+}
+.game-main-title .game-title-img {
+  background-image: url("./Image/bg.jpeg");
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  border-radius: 10px;
+  background-color: antiquewhite;
+  font-size: 2em;
+  border-style: none;
+  padding: 5% 5%;
+  width: 30%;
+  margin-top: 2%;
+  position: relative;
+}
+
+.btn:hover {
+  -webkit-animation-name: btnEvent;
+          animation-name: btnEvent;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+.game-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.game-main-content .how {
+  text-align: left;
+  font-size: 1.3em;
+  width: 100%;
+  padding: 10%;
+}
+
+.how {
+  background-color: antiquewhite;
+  width: 30%;
+}
+
+#audio_play {
+  position: relative;
+  left: 30px;
+}
+#audio_play div {
+  position: absolute;
+  top: 60px;
+  left: -3px;
+  font-size: 2em;
+}
+
+.volume-bar {
+  width: 60px;
+  position: relative;
+  top: 5px;
+  left: -7px;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 60px;
+  height: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(#ff4500, #ff4500);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #ff4500;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+.footer #score, .footer #level, .footer #life {
+  background-color: yellow;
+  font-size: 2em;
+  padding: 1%;
+  letter-spacing: 5px;
+}
+.footer #life {
+  background-color: tomato;
+}
+.footer #level {
+  background-color: skyblue;
+}
+
+.off {
+  display: none;
+}
+
+#game-how {
+  text-align: center;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  padding: 20px 30px;
+  background-color: antiquewhite;
+}
+
+#game-how:hover {
+  -webkit-animation-name: btnEvent;
+          animation-name: btnEvent;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+}
+
+#bgm-range {
+  position: absolute;
+  top: -10px;
+  left: 42px;
+}
+
+#cactus {
+  border: 1px solid red;
+}
+
+#game-play::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("./Image/bg.jpeg");
+  background-size: cover;
+  z-index: -1;
+  opacity: 0.5;
+  content: "";
+}
+
+.game-over {
+  color: red;
+  text-align: center;
+  padding-top: 80px;
+  font-size: 7em;
+  position: absolute;
+  top: 250px;
+  left: 450px;
+  background-color: antiquewhite;
+  width: 1000px;
+  height: 300px;
+  transition: all 1s;
+  -webkit-animation-name: gameOver;
+          animation-name: gameOver;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+}
+.game-over p {
+  font-size: 0.3em;
+  color: black;
+}
+
+@-webkit-keyframes btnEvent {
+  30% {
+    transform: rotate(-5deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes btnEvent {
+  30% {
+    transform: rotate(-5deg);
+  }
+  70% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+@-webkit-keyframes gameOver {
+  30% {
+    transform: rotate(120deg);
+  }
+  70% {
+    transform: rotate(240deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes gameOver {
+  30% {
+    transform: rotate(120deg);
+  }
+  70% {
+    transform: rotate(240deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}/*# sourceMappingURL=index.css.map */
