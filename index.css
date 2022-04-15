@@ -320,4 +320,9 @@ input[type=range]::-webkit-slider-thumb {
   to {
     transform: translateX(10px);
   }
+}
+@media screen and (max-width: 1680px) {
+  #arrow {
+    left: 75%;
+  }
 }/*# sourceMappingURL=index.css.map */
