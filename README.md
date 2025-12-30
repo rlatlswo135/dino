@@ -1,3 +1,5 @@
+https://rlatlswo135.github.io/dino/
+
 # 응~ 먹고 죽으면 그만이야
 호불호가 갈리는 음식을 피해보자.
 
